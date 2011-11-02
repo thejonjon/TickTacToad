@@ -1,0 +1,46 @@
+TickTacToad---
+  By: Jon Klopfer
+    3rd qtr 2011
+
+Some notes for this (?) build:
+  I'm not sure how a github app repository is supposed to work or how it's
+  supposed to be organised.
+
+  There are comments and elements of the models and views that were going
+  to support multi-player or computer play. Which is also the reason why
+  a new game makes a new player element that is still representing the AI.
+  Theoredically, if someone was in a multi-player games, and someone timed
+  out their (short poll) request, I could seamlessly convert them to AI,
+  thus leaving the still present player to continue their game.
+
+  GameBoard is a seperate class because I figured it could be coded abstract
+  enough that it could handle various kinds of games ((board)size not being
+  assumed to be == 3)
+
+  The urls.py file in the app folder does not do anything. I was trying to
+  make the github push more general.
+
+  Static files are in templates/resources and there is a view that looks
+  for (base)/img|css|js and it spits back the files. That's just a work
+  around for django's manage.py not being able to host static files. for
+  some quick dev. work only.
+
+  There currently are print statements all over the place so make sure
+  if you try to run it under mod_wsgi you let it not raise an error on
+  output.
+
+TODO:
+  -Make gameboard load when page loads if it is a game in progress
+  -Allow computer to go first.
+  -Finish up cleaning up the JS Player object
+  -Clean out multi-player support for the Player model
+  -Get rid of all 'last_poll' and 'poll' references
+  -Let user choose which toad they want to use
+  -Make your tiles more distinct (other then the obscure blue border
+    for player, and red for computer player (sam)
+  -add unit tests
+  -add API test
+  -add AI tests
+  -Style JS Blip concept
+  -Add more game over/new game buttons
+  
