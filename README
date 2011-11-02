@@ -3,6 +3,9 @@ TickTacToad---
     3rd qtr 2011
 
 Some notes for this (?) build:
+  Oh--- Yes--- the AI is not quite done defensivly. Play take the opposing
+  corners first and it will not play a acceptable defensive offense.
+
   I'm not sure how a github app repository is supposed to work or how it's
   supposed to be organised.
 
