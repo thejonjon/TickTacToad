@@ -9,6 +9,10 @@ from website.ticktactoad.models import *
 from datetime import datetime
 
 class APIResponse(object):
+	"""
+	this class is a wrapper for my standard API response formats
+	more comments soon
+	"""
 	def __init__(self,status=None,message=None,**kwargs):
 		self.return_data = { }
 		for k,v in kwargs.items():
@@ -29,12 +33,13 @@ class APIResponse(object):
 	
 #Shortcut functions		
 def _u(data):
+	#Shortcut for calling unicode()
 	return unicode(data)
 	
 def link_file(request,filename=None,**kwargs):
 	"""
 		This function is basically a little pass through for required
-		static files... It could be taken out when run on a real server
+		static files... It could be taken out when run on a real server that can host static files
 	"""
 	print filename
 	
@@ -71,9 +76,11 @@ def game_on(request,gameboard_id=False):
 
 @csrf_exempt
 def api(request):
-	"""api call hub. Distributes api calls to their isolated functions
+	"""
+	api call hub. Distributes api calls to their isolated functions
 	always returns an APIResponse object. All valid requests should
-	include a POST (or GET) action and a JSON encoded data field"""
+	include a POST (or GET) action and a JSON encoded data field
+	"""
 	
 	
 	#rd stands for requestdata
@@ -96,11 +103,14 @@ def api(request):
 			gb = ToadBoard(get_object_or_404(GameBoard,pk=data['game_id']))
 		except:
 			return HttpResponse(APIResponse(False,"GameBoard Not Found: "+str(data['game_id'])))
-		#try:
-		#	player = get_object_or_404(Player,pk=request.session['player_id'])
-		#except:
-		#	return HttpResponse(APIResponse(False,"Invalid Player",suggestion="home"))
 		
+		#Disabled for dev
+		"""
+		try:
+			player = get_object_or_404(Player,pk=request.session['player_id'])
+		except:
+			return HttpResponse(APIResponse(False,"Invalid Player",suggestion="home"))
+		"""
 	#stuff simply used to make lines shorter for the actual api routing
 	stuff = [request,rd['action'],data]
 	
@@ -146,7 +156,8 @@ def api_new_game(vs,request,action,data):
 	return APIResponse(True,"Loading Game",game_id=str(gb))
 
 def api_play(request,action,data):
-	"""A user is trying to make a move....
+	"""
+	A user is trying to make a move....
 	We are going to validate all the info-- then make sure it's their
 	turn and they're aloud on the board....
 	Then attempt to play what they want to play--- and make sure it works
