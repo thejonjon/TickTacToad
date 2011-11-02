@@ -48,10 +48,12 @@ class APIError(Error):
 
 
 class Player(models.Model):
-	"""Player class-- Even though a Player is more of an 'actor'
+	"""
+	Player class-- Even though a Player is more of an 'actor'
 	in a given game (being that the same physical player would actually
 	play more then one player) seperated out since I'm not quite 
-	comfortable with making children django models right now"""
+	comfortable with making children django models right now
+	"""
 	id = models.AutoField(primary_key=True)
 	name = models.CharField(max_length=40)
 	game_piece = models.CharField(max_length=40)
@@ -95,8 +97,11 @@ class Player(models.Model):
 	def __str__(self):
 		return str(self.id)
 class GameBoard(models.Model):
-	"""GameBoard Class-- perhapse to be overloaded later
-	This class holds the global variables of any game"""
+	"""
+	GameBoard Class-- perhapse to be overloaded later
+	This class holds the global variables of any game
+	and handles the db django interaction
+	"""
 	
 	id = models.AutoField(primary_key=True)
 	creation_datetime = models.DateTimeField(auto_now_add=True)
@@ -123,30 +128,6 @@ class GameBoard(models.Model):
 	debug = True
 	def __unicode__(self):
 		return str(self.id)
-		
-	"""Overloaded __functions__ functions"""
-	"""
-	def save(self, *args, **kwargs):
-		if not super(GameBoard,board) is None:
-			self.board_data = str(json.dumps(super(GameBoard,self).board))
-			#except:
-			#	raise GameBoardError("InvalidBoardJSON")
-		super(GameBoard, self).save(*args, **kwargs) # Call the "real" save() method.
-		
-	def __getattr__(self,name):
-		print "FETCHING SOMETHING: "+str(name)
-		if name == "board":
-			try:
-				return self.__getattribute__(name)
-			except:
-				try:
-					super(GameBoard,self).__setattr__(name, json.loads(str(self.board_data)))
-				except:
-					raise GameBoardError("InvalidBoardJSON")
-			return self.__getattribute__(name)
-		else:
-			return self.__getattribute__(name)
-	"""
 	
 	
 class ToadBoard(object):
@@ -160,8 +141,10 @@ class ToadBoard(object):
 		except:
 			pass
 	
-	"""Sort of Win condition detections-- All take in a tile location
-	and return how many points that location has before it's played"""
+	"""
+		Sort of Win condition detections-- All take in a tile location
+		and return how many points that location has before it's played
+	"""
 	def _vertical_points(self,p,loc):
 		"""Point test for verictal plays"""
 		points = 0
@@ -185,8 +168,10 @@ class ToadBoard(object):
 		return points
 	
 	def _diag_points(self,player,loc):
-		"""Do a point test for both diagnals Gross but I thought I would
-		waste to much time thinking to hard about it-- just made 2 modes"""
+		"""
+			Do a point test for both diagnals Gross but I thought I would
+			waste to much time thinking to hard about it-- just made 2 modes
+		"""
 		#for i in range(1,(self.gb.size*self.gb.size)+1,int(self.gb.size+1)):
 		#	#1,5,9
 		#for i in range(int(self.gb.size),(self.gb.size*self.gb.size)-1,int(self.gb.size)-1):
@@ -216,9 +201,11 @@ class ToadBoard(object):
 		
 	"""Utility Functions"""
 	def i_from_c(self,y,x):
-		""" Come up with tile number
+		"""
+		Come up with tile number
 		takes in: y,x cord (1,1 is top left)
-		returns: tile location on the board"""
+		returns: tile location on the board
+		"""
 		if x < 1 or y < 1 or x > self.gb.size or y > self.gb.size:
 			raise GameBoardError("OffBoard",x=x,y=y)
 		index = (self.gb.size * y)-self.gb.size
@@ -226,9 +213,11 @@ class ToadBoard(object):
 		return index
 		
 	def c_from_i(self,index):
-		""" Come up with y,x cords from the tile number
+		"""
+		Come up with y,x cords from the tile number
 		takes in: tile space (self.board index +1)
-		returns: y,x location on the board"""
+		returns: y,x location on the board
+		"""
 		if index>len(self.board) or index < 1:
 			raise GameBoardError("OffBoard")
 		
@@ -248,8 +237,10 @@ class ToadBoard(object):
 		
 	"""Specific to a 3*3 game board win detection"""
 	def detect_win(self,player,loc=False):
-		"""This function is for the gameboard to self-check the board
-		to see if anyone has won yet..."""
+		"""
+		This function is for the gameboard to self-check the board
+		to see if anyone has won yet...
+		"""
 		if self.move_points(str(player),loc) == int(self.gb.size)-1:
 			self.gb.flag_completed = player
 			self.gb.flag_running = False
@@ -296,8 +287,10 @@ class ToadBoard(object):
 		print "going with: "+str(points) + "At location: "+str(loc)
 		return points
 	
-	"""Kind of specific to TickTacToe-- since it calls wincondition
-	but otherwise just do error handling and set an attempted play"""
+	"""
+	Kind of specific to TickTacToe-- since it calls wincondition
+	but otherwise just do error handling and set an attempted play
+	"""
 	def set_square(self,player,loc):
 		"""Attempts to set square located at loc to the player"""
 		print self.gb.flag_running
