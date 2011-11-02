@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block TITLE %}TickTacToad--- Game In Progress{% endblock %}
+{% block INCLUDES %}
+<script LANGUAGE="JavaScript" SRC="/js/jquery.effect.core.js" ></script>
+<script LANGUAGE="JavaScript" SRC="/js/jquery.effect.bounce.js" ></script>
+
+<script LANGUAGE="JavaScript" SRC="/js/game_on.js" ></script>
+<script LANGUAGE="JavaScript" SRC="/js/index.js" ></script>
+{% endblock %}
+
+{% block CONTENT %}
+<h1>{{my_id}}</h1>
+<div id="board">
+	<div class="row">
+		<div class="cell tile_container"><div class="tile" id="tile_1"></div></div>
+		<div class="cell tile_container"><div class="tile" id="tile_2"></div></div>
+		<div class="cell tile_container"><div class="tile" id="tile_3"></div></div>
+		<div class="cell tile_container"><div class="spot" id="human_spot"></div></div>
+	</div>
+	
+	<div class="row">
+		<div class="cell tile_container"><div class="tile" id="tile_4"></div></div>
+		<div class="cell tile_container"><div class="tile" id="tile_5"></div></div>
+		<div class="cell tile_container"><div class="tile" id="tile_6"></div></div>
+		<div class="cell tile_container"><div class="spot" id="empty_spot"></div></div>
+	</div>
+	
+	<div class="row">
+		<div class="cell tile_container"><div class="tile" id="tile_7"></div></div>
+		<div class="cell tile_container"><div class="tile" id="tile_8"></div></div>
+		<div class="cell tile_container"><div class="tile" id="tile_9"></div></div>
+		<div class="cell tile_container"><div class="spot" id="sam_spot"></div></div>
+	</div>
+</div>
+<img src="/img/toad_green.png" class="player" id="sam" />
+<img src="/img/toad_blue.png" class="player" id="you" />
+
+<input type="hidden" id="game_id" value="{{gameboard.gb.id}}" />
+<input type="hidden" id="my_id" value="{{my_id}}" />
+{% endblock %}
+
+	

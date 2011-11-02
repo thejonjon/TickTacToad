@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/css/base.css" />
+<script LANGUAGE="JavaScript" SRC="/js/jquery-1.5.1.js" ></script>
+<script LANGUAGE="JavaScript" SRC="/js/main.js" ></script>
+{% block INCLUDES %}{% endblock %}
+<script>
+{% block EXTRA_JS %}{%endblock%}
+</script>
+<title>TickTacToad - {% block TITLE %}Main Menu{% endblock %} - by: Jon Klopfer</title>
+</head>
+<body>
+<div id="page_container">
+	<div id="header">
+	</div>
+	<div id="content">
+	{% block CONTENT %}
+	{% endblock %}
+	</div>
+</div>
+<div id="blipbox">
+</div>
+</body>
+</html>
